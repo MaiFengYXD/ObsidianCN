@@ -35,3 +35,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 本翻译版本旨在为中文版本开发者和用户提供便利。
 
 本项目无法做到实时同步原版更新，如果你特别在意这一点，请使用deividcomsono的原版。
+
+## 加载
+
+``` lua
+
+repo = "https://raw.githubusercontent.com/MaiFengYXD/ObsidianCN/main/"
+
+Library = loadstring(game:HttpGet(repo .. "Library%20Chinese")()
+ThemeManager = loadstring(game:HttpGet(repo .. "Addons/ThemeManager%20Chinese.lua")()
+SaveManager = loadstring(game:HttpGet(repo .. "Addons/SaveManager%20Chinese.lua")()
+
+```
