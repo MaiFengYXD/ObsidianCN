@@ -336,14 +336,14 @@ local SaveManager = {} do
         if isfile(autoLoadPath) then
             local successRead, name = pcall(readfile, autoLoadPath)
             if not successRead then
-                return "none"
+                return "无"
             end
 
             name = tostring(name)
-            return if name == "" then "none" else name
+            return if name == "" then "无" else name
         end
 
-        return "none"
+        return "无"
     end
 
     function SaveManager:LoadAutoloadConfig()
