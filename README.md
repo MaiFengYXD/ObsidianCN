@@ -42,7 +42,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 repo = "https://raw.githubusercontent.com/MaiFengYXD/ObsidianCN/main/"
 
-Library = loadstring(game:HttpGet(repo .. "Library%20Chinese")()
+Library = loadstring(game:HttpGet(repo .. "Library%20Chinese.lua")()
 ThemeManager = loadstring(game:HttpGet(repo .. "Addons/ThemeManager%20Chinese.lua")()
 SaveManager = loadstring(game:HttpGet(repo .. "Addons/SaveManager%20Chinese.lua")()
 
