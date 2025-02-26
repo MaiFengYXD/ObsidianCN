@@ -1,6 +1,6 @@
 # Obsidian Library (中文版本)
 
-本代码是 deividcomsono/Obsidian 项目的中文翻译版本。
+本仓库是 deividcomsono的Obsidian 项目的中文翻译版本。
 
 ## 原始版权信息
 
