@@ -16,10 +16,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 最新翻译版本由 MaiFengYXD 于 2025年02月26日 翻译。
 
-* **快捷键菜单：**
-    * "Keybind" 翻译为 "按键"。
-    * "Toggle" 翻译为 "切换"。
-    * "Hold" 翻译为 "长按"。
+* **所有默认命名细节**
+* **所有按键别名**
+* **快捷键菜单**
+* **确认提示**
+* **搜索框**
 * **插件：**
     * "ThemeManager" 和 "SaveManager" 的所有显示内容均已翻译为中文。
 
