@@ -1427,13 +1427,13 @@ do
                 return
             end
 
-            if KeyPicker.Mode == "切换" and ParentObj.Type == "切换" and ParentObj.Disabled then
+            if KeyPicker.Mode == "Toggle" and ParentObj.Type == "Toggle" and ParentObj.Disabled then
                 KeybindsToggle:SetVisibility(false)
                 return
             end
 
             local State = KeyPicker:GetState()
-            local ShowToggle = Library.ShowToggleFrameInKeybinds and KeyPicker.Mode == "切换"
+            local ShowToggle = Library.ShowToggleFrameInKeybinds and KeyPicker.Mode == "Toggle"
 
             if KeybindsToggle.Loaded then
                 if ShowToggle then
@@ -1451,9 +1451,9 @@ do
         end
 
         function KeyPicker:GetState()
-            if KeyPicker.Mode == "总是" then
+            if KeyPicker.Mode == "Toggle" then
                 return true
-            elseif KeyPicker.Mode == "长按" then
+            elseif KeyPicker.Mode == "Hold" then
                 local Key = KeyPicker.Value
                 if Key == "无" then
                     return false
