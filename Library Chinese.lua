@@ -181,7 +181,7 @@ local Templates = {
         Visible = true,
     },
     Input = {
-        Text = "输入",
+        Text = "输入框",
         Default = "",
         Finished = false,
         Numeric = false,
@@ -229,8 +229,8 @@ local Templates = {
     KeyPicker = {
         Text = "绑定键",
         Default = "无",
-        Mode = "切换",
-        Modes = { "一直", "切换", "按住" },
+        Mode = "Toggle",
+        Modes = { "Always", "Toggle", "Hold" },
         SyncToggleState = false,
 
         Callback = function() end,
@@ -556,7 +556,7 @@ local function ParentUI(UI: Instance)
 end
 
 local ScreenGui = New("ScreenGui", {
-    Name = "ObsidianCN",
+    Name = "Obsidian",
     DisplayOrder = 999,
     ResetOnSpawn = false,
 })
@@ -1259,8 +1259,8 @@ do
         }
 
         if KeyPicker.SyncToggleState then
-            Info.Modes = { "切换" }
-            Info.Mode = "切换"
+            Info.Modes = { "Toggle" }
+            Info.Mode = "Toggle"
         end
 
         local Picker = New("TextButton", {
@@ -1274,7 +1274,7 @@ do
         })
 
         local KeybindsToggle = {
-            Normal = KeyPicker.Mode ~= "切换",
+            Normal = KeyPicker.Mode ~= "Toggle",
         }
         do
             local Holder = New("TextButton", {
@@ -1427,13 +1427,13 @@ do
                 return
             end
 
-            if KeyPicker.Mode == "切换" and ParentObj.Type == "切换" and ParentObj.Disabled then
+            if KeyPicker.Mode == "Toggle" and ParentObj.Type == "Toggle" and ParentObj.Disabled then
                 KeybindsToggle:SetVisibility(false)
                 return
             end
 
             local State = KeyPicker:GetState()
-            local ShowToggle = Library.ShowToggleFrameInKeybinds and KeyPicker.Mode == "切换"
+            local ShowToggle = Library.ShowToggleFrameInKeybinds and KeyPicker.Mode == "Toggle"
 
             if KeybindsToggle.Loaded then
                 if ShowToggle then
@@ -1442,7 +1442,7 @@ do
                     KeybindsToggle:SetNormal(true)
                 end
 
-                KeybindsToggle:SetText(("[%s] %s (%s)"):format(KeyPicker.Value, KeyPicker.Text, KeyPicker.Mode))
+                KeybindsToggle:SetText(("[%s] %s (%s)"):format(KeyPicker.Value, KeyPicker.Text, KeyPicker.Mode == "Toggle" and "切换" or KeyPicker.Mode == "Hold" and "按住" or "一直"))
                 KeybindsToggle:SetVisibility(true)
                 KeybindsToggle:Display(State)
             end
@@ -1451,9 +1451,9 @@ do
         end
 
         function KeyPicker:GetState()
-            if KeyPicker.Mode == "一直" then
+            if KeyPicker.Mode == "Always" then
                 return true
-            elseif KeyPicker.Mode == "按住" then
+            elseif KeyPicker.Mode == "Hold" then
                 local Key = KeyPicker.Value
                 if Key == "无" then
                     return false
@@ -1480,7 +1480,7 @@ do
         end
 
         function KeyPicker:DoClick()
-            if ParentObj.Type == "切换" and KeyPicker.SyncToggleState then
+            if ParentObj.Type == "Toggle" and KeyPicker.SyncToggleState then
                 ParentObj:SetValue(KeyPicker.Toggled)
             end
 
@@ -1545,7 +1545,7 @@ do
 
         Library:GiveSignal(UserInputService.InputBegan:Connect(function(Input: InputObject)
             if
-                KeyPicker.Mode == "一直"
+                KeyPicker.Mode == "Always"
                 or KeyPicker.Value == "未知"
                 or KeyPicker.Value == "无"
                 or Picking
@@ -1554,7 +1554,7 @@ do
                 return
             end
 
-            if KeyPicker.Mode == "切换" then
+            if KeyPicker.Mode == "Toggle" then
                 local Key = KeyPicker.Value
 
                 if Key == "左键" or Key == "右键" then
