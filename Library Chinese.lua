@@ -1,4 +1,4 @@
---// 上次翻译：2025-02-26 | Copyright (c) 2025 deividcomsono
+--// 上次翻译：2025-03-01 | Copyright (c) 2025 deividcomsono
 
 local cloneref = (cloneref or clonereference or function(instance: any)
     return instance
@@ -181,7 +181,7 @@ local Templates = {
         Visible = true,
     },
     Input = {
-        Text = "输入框",
+        Text = "输入",
         Default = "",
         Finished = false,
         Numeric = false,
@@ -227,10 +227,10 @@ local Templates = {
 
     --// Addons \\-
     KeyPicker = {
-        Text = "按键绑定",
+        Text = "绑定键",
         Default = "无",
         Mode = "切换",
-        Modes = { "总是", "切换", "长按" },
+        Modes = { "一直", "切换", "按住" },
         SyncToggleState = false,
 
         Callback = function() end,
@@ -556,7 +556,7 @@ local function ParentUI(UI: Instance)
 end
 
 local ScreenGui = New("ScreenGui", {
-    Name = "Obsidian",
+    Name = "ObsidianCN",
     DisplayOrder = 999,
     ResetOnSpawn = false,
 })
@@ -1427,13 +1427,13 @@ do
                 return
             end
 
-            if KeyPicker.Mode == "Toggle" and ParentObj.Type == "Toggle" and ParentObj.Disabled then
+            if KeyPicker.Mode == "切换" and ParentObj.Type == "切换" and ParentObj.Disabled then
                 KeybindsToggle:SetVisibility(false)
                 return
             end
 
             local State = KeyPicker:GetState()
-            local ShowToggle = Library.ShowToggleFrameInKeybinds and KeyPicker.Mode == "Toggle"
+            local ShowToggle = Library.ShowToggleFrameInKeybinds and KeyPicker.Mode == "切换"
 
             if KeybindsToggle.Loaded then
                 if ShowToggle then
@@ -1451,9 +1451,9 @@ do
         end
 
         function KeyPicker:GetState()
-            if KeyPicker.Mode == "Toggle" then
+            if KeyPicker.Mode == "一直" then
                 return true
-            elseif KeyPicker.Mode == "Hold" then
+            elseif KeyPicker.Mode == "按住" then
                 local Key = KeyPicker.Value
                 if Key == "无" then
                     return false
@@ -1545,7 +1545,7 @@ do
 
         Library:GiveSignal(UserInputService.InputBegan:Connect(function(Input: InputObject)
             if
-                KeyPicker.Mode == "总是"
+                KeyPicker.Mode == "一直"
                 or KeyPicker.Value == "未知"
                 or KeyPicker.Value == "无"
                 or Picking
@@ -2258,7 +2258,7 @@ do
                 if Button.DoubleClick then
                     Button.Locked = true
 
-                    Button.Base.Text = "你确定吗？"
+                    Button.Base.Text = "Are you sure?"
                     Button.Base.TextColor3 = Library.Scheme.AccentColor
                     Library.Registry[Button.Base].TextColor3 = "AccentColor"
 
@@ -2446,7 +2446,7 @@ do
             Visible = Info.Visible,
             Addons = {},
 
-            Type = "切换",
+            Type = "Toggle",
         }
 
         local Button = New("TextButton", {
@@ -2642,7 +2642,7 @@ do
             Visible = Info.Visible,
             Addons = {},
 
-            Type = "切换",
+            Type = "Toggle",
         }
 
         local Button = New("TextButton", {
@@ -3114,7 +3114,7 @@ do
         end
 
         function Slider:SetMax(Value)
-            assert(Value > Slider.Min, "最大值不能小于最小值")
+            assert(Value > Slider.Min, "Max value cannot be less than the current min value.")
 
             Slider.Value = math.clamp(Slider.Value, Slider.Min, Value)
             Slider.Max = Value
@@ -3122,7 +3122,7 @@ do
         end
 
         function Slider:SetMin(Value)
-            assert(Value < Slider.Max, "最小值不能大于最大值")
+            assert(Value < Slider.Max, "Min value cannot be greater than the current max value.")
 
             Slider.Value = math.clamp(Slider.Value, Value, Slider.Max)
             Slider.Min = Value
@@ -3226,6 +3226,7 @@ do
 
         Slider.Holder = Holder
         table.insert(Groupbox.Elements, Slider)
+
         Options[Idx] = Slider
 
         return Slider
@@ -3938,7 +3939,7 @@ function Library:CreateWindow(WindowInfo)
     local Tabs
     local Container
     do
-        Library.KeybindFrame, Library.KeybindContainer = Library:AddDraggableMenu("快捷按键")
+        Library.KeybindFrame, Library.KeybindContainer = Library:AddDraggableMenu("Keybinds")
         Library.KeybindFrame.AnchorPoint = Vector2.new(0, 0.5)
         Library.KeybindFrame.Position = UDim2.new(0, 6, 0.5, 0)
         Library.KeybindFrame.Visible = false
@@ -4827,7 +4828,7 @@ function Library:CreateWindow(WindowInfo)
                 BackgroundColor3 = "MainColor",
                 BorderColor3 = "OutlineColor",
                 BorderSizePixel = 1,
-                PlaceholderText = "密钥",
+                PlaceholderText = "Key",
                 Size = UDim2.new(1, -71, 1, 0),
                 TextSize = 14,
                 TextXAlignment = Enum.TextXAlignment.Left,
@@ -4846,7 +4847,7 @@ function Library:CreateWindow(WindowInfo)
                 BorderSizePixel = 1,
                 Position = UDim2.fromScale(1, 0),
                 Size = UDim2.new(0, 63, 1, 0),
-                Text = "执行",
+                Text = "Execute",
                 TextSize = 14,
                 Parent = Holder,
             })
@@ -4982,7 +4983,7 @@ function Library:CreateWindow(WindowInfo)
     end
 
     if Library.IsMobile then
-        local ToggleButton = Library:AddDraggableButton("切换", function()
+        local ToggleButton = Library:AddDraggableButton("Toggle", function()
             Library:Toggle()
         end)
 
