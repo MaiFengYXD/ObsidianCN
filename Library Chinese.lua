@@ -1442,7 +1442,7 @@ do
                     KeybindsToggle:SetNormal(true)
                 end
 
-                KeybindsToggle:SetText(("[%s] %s (%s)"):format(KeyPicker.Value, KeyPicker.Text, (KeyPicker.Mode == "Toggle" and "切换") or (KeyPicker.Mode == "Hold" and "按住") or (KeyPicker.Mode == "Always" and "总是")))
+                KeybindsToggle:SetText(("[%s] %s (%s)"):format(KeyPicker.Value, KeyPicker.Text, (KeyPicker.Mode == "切换") or (KeyPicker.Mode == "按住") or (KeyPicker.Mode == "总是")))
                 KeybindsToggle:SetVisibility(true)
                 KeybindsToggle:Display(State)
             end
