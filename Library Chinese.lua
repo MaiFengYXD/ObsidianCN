@@ -229,8 +229,8 @@ local Templates = {
     KeyPicker = {
         Text = "按键绑定",
         Default = "无",
-        Mode = "Toggle",
-        Modes = { "Always", "Toggle", "Hold" },
+        Mode = "切换",
+        Modes = { "总是", "切换", "长按" },
         SyncToggleState = false,
 
         Callback = function() end,
@@ -1259,8 +1259,8 @@ do
         }
 
         if KeyPicker.SyncToggleState then
-            Info.Modes = { "Toggle" }
-            Info.Mode = "Toggle"
+            Info.Modes = { "切换" }
+            Info.Mode = "切换"
         end
 
         local Picker = New("TextButton", {
@@ -1274,7 +1274,7 @@ do
         })
 
         local KeybindsToggle = {
-            Normal = KeyPicker.Mode ~= "Toggle",
+            Normal = KeyPicker.Mode ~= "切换",
         }
         do
             local Holder = New("TextButton", {
@@ -1427,13 +1427,13 @@ do
                 return
             end
 
-            if KeyPicker.Mode == "Toggle" and ParentObj.Type == "Toggle" and ParentObj.Disabled then
+            if KeyPicker.Mode == "切换" and ParentObj.Type == "切换" and ParentObj.Disabled then
                 KeybindsToggle:SetVisibility(false)
                 return
             end
 
             local State = KeyPicker:GetState()
-            local ShowToggle = Library.ShowToggleFrameInKeybinds and KeyPicker.Mode == "Toggle"
+            local ShowToggle = Library.ShowToggleFrameInKeybinds and KeyPicker.Mode == "切换"
 
             if KeybindsToggle.Loaded then
                 if ShowToggle then
@@ -1451,9 +1451,9 @@ do
         end
 
         function KeyPicker:GetState()
-            if KeyPicker.Mode == "Always" then
+            if KeyPicker.Mode == "总是" then
                 return true
-            elseif KeyPicker.Mode == "Hold" then
+            elseif KeyPicker.Mode == "长按" then
                 local Key = KeyPicker.Value
                 if Key == "无" then
                     return false
@@ -1480,7 +1480,7 @@ do
         end
 
         function KeyPicker:DoClick()
-            if ParentObj.Type == "Toggle" and KeyPicker.SyncToggleState then
+            if ParentObj.Type == "切换" and KeyPicker.SyncToggleState then
                 ParentObj:SetValue(KeyPicker.Toggled)
             end
 
@@ -1545,7 +1545,7 @@ do
 
         Library:GiveSignal(UserInputService.InputBegan:Connect(function(Input: InputObject)
             if
-                KeyPicker.Mode == "Always"
+                KeyPicker.Mode == "总是"
                 or KeyPicker.Value == "未知"
                 or KeyPicker.Value == "无"
                 or Picking
@@ -1554,7 +1554,7 @@ do
                 return
             end
 
-            if KeyPicker.Mode == "Toggle" then
+            if KeyPicker.Mode == "切换" then
                 local Key = KeyPicker.Value
 
                 if Key == "左键" or Key == "右键" then
@@ -2446,7 +2446,7 @@ do
             Visible = Info.Visible,
             Addons = {},
 
-            Type = "Toggle",
+            Type = "切换",
         }
 
         local Button = New("TextButton", {
@@ -2642,7 +2642,7 @@ do
             Visible = Info.Visible,
             Addons = {},
 
-            Type = "Toggle",
+            Type = "切换",
         }
 
         local Button = New("TextButton", {
@@ -4982,7 +4982,7 @@ function Library:CreateWindow(WindowInfo)
     end
 
     if Library.IsMobile then
-        local ToggleButton = Library:AddDraggableButton("Toggle", function()
+        local ToggleButton = Library:AddDraggableButton("切换", function()
             Library:Toggle()
         end)
 
